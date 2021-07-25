@@ -1,0 +1,59 @@
+                                                               MAVEN-2
+                                                            =============
+
+1.Commands 
+  ---------:- its called in goals and we have "3 life-cycle"
+                                              ---------------
+
+life-cycles               Goal Name ("importent")
+------------>            ------------
+                          
+1) clean                   clean: this goal will deletes the previous build filles..
+
+2) site                    site: it will genereates the doc for source-code
+
+3) default (imp***) -----> it have mulitipul goals some importent goals
+                           
+                           validate: its check the project structure and resource files.
+                 
+                           compile: it will compile the source code.
+     
+                           test: it will run the unit test cases..
+ 
+                           package: it will generates the package (or) build artifact (jar,war and ear)
+
+                           install: it will store the build artifact into maven local repo.
+
+                           depoly: it will store the build artifact into Remote repo.
+                           
+goals
+-------:-
+          mvn clean
+          mvn validate
+          mvn compile
+          mvn package
+          mvn test
+          mvn package
+          mvn install
+          mvn depoly
+
+MAVEN use two goals at time
+----------------------------> yes
+                              
+                               like --> mvn clean package..              
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+

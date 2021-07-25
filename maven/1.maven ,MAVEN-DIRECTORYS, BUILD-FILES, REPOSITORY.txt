@@ -1,0 +1,138 @@
+                                                        maven-1
+                                                  =================
+1. maven is a java build tool, its an os.
+
+2. useing java we devolp the 3 application
+
+   * standalone app  (jar)
+   
+   * web apps        (war)
+  
+   * enterprise apps (ear)
+
+1. standalone apps
+  ------------------:- it contain only ".java" file  and ".class" file and we have "jar"file.
+        
+            
+        how to run jar file
+      ----------------------:-# java -jar jarfilename
+
+2. web apps
+  ----------> its contain java code + web application (html, images, css, js)
+         
+3. Enterprise apps
+   ----------------> (ear)it have the multipull modules it contain the atleast "one war + one jar" files
+             
+                   
+
+MAVEN-DIRECTORY STRUCTURE
+--------------------------:-
+
+bin: its contain binary's commands like :- mvn
+
+conf: it contain configareaton file like :- settings.xml
+
+lib: it conatain libarary :- jar file
+
+boot: when its running some files it conatain 
+
+
+MAVEN-INSTALLATION
+-------------------:-
+
+1. java is the pre-requried (java 8 or java 1.8)
+
+2. maven 3.6.3
+
+SAMPLE CONTENT FILE
+---------------------------:-
+
+maven --> pom.xml
+
+ant ----> build.xml
+
+Gradle ---> build.gradle
+
+xml--> extensible markup language
+
+HTML --> Hypertext Markup Language
+
+XML
+---->
+   <krishna> ---> opening tag
+
+   </chaithanya> --> closing tag
+
+MAVEN-BUILD FILE
+-----------------:-
+<project>
+	
+	<groupId>com.mt</groupId>
+	<artifactId>maven-web-application</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	
+	<name>maven-web-application</name>
+
+	<description>Maven Web Project for Java Project</description>
+
+	<organization>
+		<name>Mithun Technologies</name>
+		<url>http://mithuntechnologies.com/</url>
+	</organization>
+</project>
+
+
+
+HERE
+------>1. <project>
+                  }----> its called "root tag" (or) "parent tag"   
+         </project>
+
+       2. groupId --> its company .com (like--> com.ibm)
+
+       3. artfactId --> project name
+ 
+       4. version --> project version
+ 
+       5. packgnig --> its likle --> jar or war files.
+
+      
+
+MAVEN-REPOSITORYS
+-----------------:> it have 3 repositorys
+
+1) Maven local Repo --> its nothing but folder in our system  folder name --> .m2 (~/.m2/repository)
+   ----------------:
+                      * in windows--> c://users/.m2/repo
+                     
+                      * linux--> /home/un/.m2/repo
+
+     * how to change .m2 file path
+       -----------------------------:- go to --> Maven HOME --> conf file --> settings.xml --> <localRepository>
+                                                                                                here we can custom local repo path
+                                                                                                </localRepository> 
+
+2) Maven Centrol Repository
+   -------------------------:- its maintain the maven comunity it cantain the large repository of commonly used library. some of plugins not found in local repositorys 
+                            
+                                its going to use centrol repository at : http://search.maven.org/.
+
+3) Remote-repository
+   ------------------:- its  our comany maintained.
+
+
+ 
+
+      
+
+
+
+
+
+
+
+
+
+
+
