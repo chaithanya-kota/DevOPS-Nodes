@@ -1,0 +1,141 @@
+
+
+
+                                                    load-balancer
+                                                 ==================
+1. load-balancer
+   ---------------:- in kubernetes service we have a * clusterIP * node-port * load-balencer
+
+* in load-balencer placed in external its work traffic rout to "node-port"
+                                                 
+
+
+                                                           eks-1
+                                                    ==================
+1. eks 
+   ----:- we have "controle-plane"  and "worker-nodes" 
+
+          * controle-plane --> is matser its total controll the AWS
+
+          * worker-nodes --> is controll the devops-engineers
+
+setup-eks
+==========:-
+
+step1
+-----:- create iam-role polacy of eks-cluster 
+
+step2
+-----:- create vpc for eks (cloud-formation its service in aws its have templates to create services in aws like vpc,,etc)
+
+step3
+------:- goto  aws we have service of EKS
+
+         * here--> cluster(eks) create-cluster
+         
+         * name-->
+         * kubernetes version --> select version
+         * cluster service role --> iam-role
+         
+         next
+   
+         * networking
+           ----------->
+         * vpc---> select our vpc
+         * subnets ---> select our subnets
+         * security-group----> select sg
+
+         cluster endpoint access
+ 
+         * public ,public private , private
+     
+         Networking add-ons
+         
+         Amazon VPC CNI
+  
+         * version ---> select
+ 
+         next
+
+         control plane logging
+
+         here next
+
+step4
+-----:-
+
+* create iam-users ---> AWS acces type we give the both 1.programmatic acess
+
+                                                        2.AWS Management console acess
+
+* create password 
+
+* require password reset
+
+* attach the policy (we create policy of json, eks list read write)
+
+* resource select (like we have one or more clusters, we give the one cluster help of ARN )
+
+
+step5 
+------:-
+
+* after finish above the work, we create the ec2-instance.
+
+* in that instance we install the kubernetes-client
+
+* install awscli
+
+* # aws cofigure  enter  its ask-->aws access key , password, rezion, output-->table
+
+* # aws eks list-cluster  (here come cluster deatails)
+
+* # aws eks update-kubeconfig --name clustername --region ap-south-1  (its add the .kube file in our server)
+
+* next we use kubernetes commands.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         

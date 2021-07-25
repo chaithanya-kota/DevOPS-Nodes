@@ -1,0 +1,17 @@
+                                                  class-volmes
+                                                 ==============
+
+1. Persistent Volumes
+   -------------------:-* its one of the kubernetes object.
+
+                        * this is recamended volumes to use kubernetes pods
+
+                        * its a volumes are simply a piece of storage in our cluster,
+
+   * persistent volumes two types 1. Static Volumes 2. Dynamic Volumes
+
+1. Static Volume
+  ---------------:- its manulay created persistent volume in the cluster and its ready to be consumed by other resources, normally its created k8s adminteam.
+
+1. Persistent volume claims
+   -------------------------:- when a pod wants acess to persistent volume , first we request the pvc (persistent volume claims)

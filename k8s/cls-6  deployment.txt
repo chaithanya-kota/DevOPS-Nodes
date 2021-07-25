@@ -1,0 +1,218 @@
+                                            class-6
+                                          ===========
+
+we have some times pod images are imagepullbackoff
+                                 ------------------:- its for private dockerhub reposites thats why,
+                                                      we give the creadentiols of dockerhub how?
+
+
+# kubectl get secret
+
+      
+1.# kubectl create secret docker-registry <secretname>
+    --docker--server=<your registorty server>optional
+    --docker-username=<your name>
+    --docker-password=<your password>
+    --docker-email=<your mail>optional
+
+             how to apply these creadeantiols?
+   
+when we write manifest file
+----------------------------:-
+apiVersion: 
+kind:
+metadata:
+spec:
+ imagePullSecrets:
+ - name: <secret-name>
+containers:
+-----------------------------------------------------------------------------------------------------------
+communicate container in cluster
+---------------------------------:-
+1.# curl clusterIP
+
+2.# curl clusterIP/(web apps)
+         (or)  
+3.# wget -o - clusterIP/(our apllication-name)
+==============================================================================================================
+
+controllers
+------------:-1.ReplicationController
+              2.ReplicaSet
+              3.DaemanSet
+              4.Deployment
+
+
+4. Depolyment its have the strategy two types
+                                    ----------:- 1.Recreate
+                                                 2.RollingUpdate(default)
+
+
+RollingUpdate
+===============:-
+              * its update the pods 1/1(one-termineated one-created after one-terminated one-created)
+                  
+              * in this we have the some options
+
+create the RollingUpdate
+-------------------------:-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: roll-dep
+spec:
+ replicas: 2
+ strategy:
+   type: RollingUpdate
+   rollingupdate: (options)
+     maxSurge: 1 (its how many create)
+     maxUnavailable: 1 (its how many down)
+  minReadySeconds: 60(how much time to up the container)
+  selectors:
+    matchLabels:
+       key: value
+  template:
+   metadata:
+     name: pod
+     labels:
+      key: value
+   spec:
+    containes:
+    - name: name-con
+      image: 
+      ports:
+      - containerPort:      
+
+
+
+HERE
+=====> maxUnavailable: 1 (its mean when your update the pod, that time total pods in 1 pod down and its update, if its sucssfully update after remain pods update,
+                           assume that one pod not sucssfull, remain pods not down and not update)
+
+
+
+              
+
+-------------------------------
+1. #kubectl apply -f filename
+
+2. #kubectl get deployment
+ 
+3. #kubectl rollout status deployment deployment-nmae
+
+4. #kubectl rollout history deployment deployment-name
+
+5. #kubectl apply -f filename --record(update the manifestfile)
+
+5. #kubectl rollout history deployment deployment-name --revision and number
+ 
+6. #kubectl rollout undo deployment deployment-name --to-revision number
+---------------------------------------------------------------------------------------------------------
+
+Blu/green (or) Red/black
+===========================:-
+                           * what is blugreen approch?
+
+*it have the old version of the application(green) and also new version of the application(blue) get 
+ deployment both at the same time. users only acceess the green ;whereas, the blue is available to you 
+ QA testing team, after new version tested and relese, the service is switched to the blue version with 
+ the old green version being scaled down:
+
+this is used ---filikart ,amazon ..etc..(no down time application)
+  
+
+=========================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

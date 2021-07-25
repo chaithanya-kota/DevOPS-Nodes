@@ -1,0 +1,239 @@
+                                                 class-4
+                                            =====================
+
+dry-run
+========:- before you gonig to apply manifest file do the dry-run its shows the errors.
+           "# kubectl apply -f filename --dry-run=client" its just checking purpose.
+
+namespace
+=========:- noramally we created pod its going to under default namespace,we can change,and how to create namespace.
+            
+            1.# kubectl config get-contexts (this one show the default namespace) 
+            2.# kubectl config set-context --namespace=name of namespace --current    (its change the default permnetly)
+            3 above cmnd to use change to default one
+=====================================================================================================================
+
+pod and service manifest files labels are different what to do to connect them
+-------------------------------------------------------------------------------:-
+
+1. edit pod or service 
+2."# kubectl edit svc name"
+3. after to edit check the service file endpoints its show the vertulaip of pod.
+    ("# kubectl describe svc name") 
+====================================================================================================================
+
+1.ReplicationController   (it's used for highle avilabilty purpose)
+=======================:-its manage pod life-cycle, its responsible for makimg sure that the spacified number of pod replicas
+                         are running at ant point of time.
+
+
+how create ReplicatonController
+-------------------------------:- 
+
+apiVersion: v1
+kind: ReplicationController
+metadata: 
+   name: <RC-name>
+   labels:<those for RC> 
+spec: 
+  repilcas: <num of replicas>
+  selector:
+      <key>: <value>
+  template:  (pod information)
+     metadata:
+        name: <pod name>
+        labels:
+         <key>: <value>
+      spec:
+        containers:
+        -  name: <name of cont>
+           image: 
+           ports:
+           - containerPort: 
+
+
+1.# kubectl apply -f filename --dru-run=client
+2.# kubectl apply -f fliename
+3.# kubectl get rc (or) # kubectl get replicatoncontroller
+4.# kubectl get all(it's shows pods information, you can see the how is controll them)
+5.# kubectl delete rc pod name(it's going to delete permently) 
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+   name: kotarc
+spec:
+ replicas: 3
+ selector:
+   abc: def
+ template:
+   metadata: #pod
+     name: chaipod
+     labels:
+      abc: def
+   spec:
+    containers:
+    - name: kriscon
+      image: dockerhandson/java-web-app
+      ports:
+      - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chainodepo
+spec:
+ type: NodePort
+ ports:
+ - port: 80
+   targetPort: 8080
+ selector:
+  abc: def
+~
+
+
+
+
+Scaleup ,Scaledown?
+-------------------:-1.# kubectl scale rc <name of rc> --replicas 2 (number is high its scaleup)
+                     2.# kubectl scale rc <name of rc> --replicas 1 (scale down)
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------
+ two ojects single manifest file ?
+-----------------------------------:- yes we done use this("---")
+apiVersion: v1
+kind: pod
+metadata:
+secp:
+
+---
+apiVersion: v1
+kind: service
+metadata:
+spec:
+
+:wq (this type)
+---------------------------------------------------------------------------------------------------------------------
+1.what is difference b/w the kubectl apply / kubectl create?
+
+  kubectl create also created "manifest" file
+  1. # kubectl create -f filename
+  2. # kubectl update -f filename
+  
+2.how to comunicate two PODS in same cluster? (help of service)
+--------------------------------------------:-
+* any pod we created service(like:- clusterip,nodeport) it's automatically jenreated the clusterip and service name
+ we used the two(clusterIP,servicename) comunicate them.
+
+1.# kubectl exec pod name -it bash(its login to the pod)
+
+2. login after pod type the onther pod clusterIP
+    (# curl clusterIP) or (# curl pod service name)
+
+here
+-----:- what happend (we request the service, service go to the port 80 then port goto container 8080)
+
+
+
+
+================================================================================================================================
+
+2.ReplicaSet
+============:- its advanced version or next genreation of ReplicationController
+
+ "Only deffernece b/w RepilcaSet / ReplicationSelector  comes in selector support"
+    
+1.two types of selectors ("eqality based selector, set based selector")
+
+ReplicationController
+---------------------:- its' support the (set based selector)
+ReplicaSet
+------------:- it's support both  
+
+
+create ReplicaSet
+==================:-
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: <nome of replicaset>
+  labels:
+     key: value
+spec:
+  replica: (number of replicas)
+  selector:
+   matchlabels:
+       app: name
+  template:
+    metadata:
+      name: <pod name>
+      labels:
+       key: value
+    spec:
+     containers:
+     - name: <name of container>
+       image: <image name>
+       ports:
+       - port: 80
+         containerPort: 8080
+-------------------------------------------------------------------------------------------------------------------------
+1.# kubectl apply -f filename
+2.# kubectl get rc
+3. #kubectl get all
+
+
+
+                                           ===END===
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           

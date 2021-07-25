@@ -1,0 +1,247 @@
+                                              class-5
+                                          ===============
+watch
+======:- kubectl get pods --watch
+
+
+DaemonSet
+----------:- its one of controller, its will make copy's of pod in every node.
+             
+             * it's does not have the scale up, scale down.
+             * it's also controll the (kube proxy,wavenet,..etc)  
+                   check("# kubectl get all -n kube-system")
+
+create the daemonset
+---------------------:-
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: (name of DaemonSet)
+  labels:
+    key: value
+spec:
+  selector:
+    matchLabels:
+       key: value
+  template:
+    metadata: 
+     name: pod name
+     labels:
+         key: value
+    spec:
+     containers:
+     - name: container name(nginx)
+       image: nginx
+       ports:
+       - containerPort: 80
+
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+   name: javawebapp
+spec:
+ selector:
+   matchLabels:
+     app: javawebapp
+ template:
+   metadata: #pod
+     name: chaipod
+     labels:
+      app: javawebapp
+   spec:
+     containers:
+     - name: krisco
+       image: dockerhandson/java-web-app
+       ports:
+       - containerPort: 8080
+
+
+
+
+
+------------------------------
+1. #kubectl apply -f filename (check the pods its created all nodes in cluster)
+
+=========================================================================================================
+
+you can delete all objects when we created all time ?
+------------------------------------------------------
+1. you can delete namespace then all objects also delete, but you don't delete default namespace
+            (# kubectl get pods -o wide --all-namespces)
+                                    (or)
+2. #kubectl get all
+3. #kubectl delete all --all (its deleted the created all objects)
+============================================================================================================
+
+Deployment
+===========:- * this one we recamended to deploy the our application
+
+              * we created Deployment it's internally created ReplicaSet, ReplicaSet controll the these pods
+                             
+              * update pods with zero downtime
+ 
+              * rollback to older deployment version0
+
+              * it's also scale-up,scale-down to apply them 
+                     
+              * deployment have the stratage two types 1.recreate
+                                   ----------          2.rollingupdate(its defult)
+                                                        
+ 
+  what difference b/w the Deployment and (Replicacontroller ,ReplicaSet)
+--------------------------------------------------------------------------:-
+ * we created the pods use the RC,RS after we updte or change the image what to
+    
+   first we delete the pod and change the manifest file to crete them then we have the down time .
+  
+ inthis case we use the Deployment    
+                       ------------:-(its updated automatically) 
+                                    
+                                   * its created pods we can update the images two types here
+                                                                               ----       ----
+ 1. command()
+ 2. edit the manifest file.
+
+
+creted Deployment
+------------------:-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: (nome of depolyment)
+spec:
+ strategy:
+    type: Recreate(two types 1.recreate,2.rollingupdate)
+ selector:
+  matchLabels:
+   key: vallue
+ template:
+  metadata:
+    name: pod name
+    labels:
+      key: value
+  spec:
+   containers:
+   - name: name of con
+     iamge: 
+     ports:
+     - containerPort:
+----------------------------------------
+1.# kubectl apply -f filename
+
+2.# kubectl get deployment
+
+3.# kubectl rollout status deployment deployment name(its show the its successfully or not)
+
+4.# kubectl rollout history deployment deployment name(its show the history of deployments)
+    here:- its show the revision number in that number we can see 
+
+5.# kubectl rollout history deployment deployment name --revision number
+
+6.# kubectl set image deployment deployment-name container-name=update-image-name --record
+        (its command for update the image directly)
+
+7.# kubectl apply -f filname --record(update the file that file created) 
+
+****HERE (--record)
+========:- it's menction the revision in that what changed, without --record cmd works no problem
+
+
+REVISION
+========:- its use when somthing is problem present image, then we will go to previus revision
+                                                                              -------------------
+1. #kubectl rollout undo deployment deployment-name(it's go to privous 1 revision)
+
+2. #kubectl rollout undo deployment depolyment-name --to-revision number
+              (here to use this we given nuber to back that revision)
+ 
+
+
+
+                                     ====END===
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

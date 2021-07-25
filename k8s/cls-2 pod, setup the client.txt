@@ -1,0 +1,99 @@
+                                                    kubernetes (2nd class)
+                                                ===========================
+client setup?
+
+1. install the kubectl
+2. now vealidate (kubectl version --client) 
+
+* we install the kubectl , we need cluster information how?
+  
+1. go to master open cluster file(cat/etc/kubernetes/admin.conf) then copy the file  
+2. go to client server mkdir .kube/config file to paste them 
+   then you intarct with you cluster.
+3. this server just client server 
+                                       
+
+kubernetes (resources/objects/workloads)
+=========================================:- kubernetes resouces like ("pod,service,replicationcontroller,replicaset,daemonset,deployment,
+                                           statefullset,persistantvolume")
+
+Namespace
+==========:- its a logical groups (or) cluster insede the virtual cluster ,we have the multipull groups of namespaces
+              its used for security , and allacated the some resource one of the namespaces.
+             we have the "default namespace, kubesystem, kubepublic"   
+
+                                       (or)
+
+
+  * its logical groups its like our whats up groups, name-space we use like two different applications its suppretaed we use this and also 
+ 
+    we gives the cpu & memory and security   
+
+  * we create pod in custmise namespace, then we create services like clusterip ,nodeport same namespace, its not happend its not work.
+
+             #kubectl get namespaces (or) kubectl get ns
+             
+             #kubectl get all -n namespacename  (its give the what on the that namespace)
+
+             #kubectl create namespace nmae
+
+            #kubectl get pods  -n name of namespace
+
+            #kubectl describe pod podname -n name of namespace
+         
+            $ kubectl config set-context --current --namespace=namepsace_name (change default-namespace)
+
+POD
+====:- its allways run on node
+      * in kubernetes smallest buliding block is "pod" it's running process
+      * pod have the one or more containers. those containers are share the unique network ip, storage networks and any ather specification.
+      * in pod we have two containers that containers port nubers are same, what happend its not work becase those containers same ip. 
+      * pod have the ip adress.
+      
+      * "how comunicate two containers in same pod?"
+     ===with help of local host its salfe because sheareing the same natework , storage===
+  
+      * create pod
+        ==========:- two types they are 1.imperative 2.Declartive
+        Impartive:- its comand  
+        Declarative:- tis yml file  (or) manifest file 
+        
+     manifestfile 
+    ==============:- apiVersion: v1(in kubernetes resource have the versions pod version v1)
+                     kind: Pod (what resource)
+                     metadata: 
+                        name: (resource name or pod name)
+                        labels:
+                          (key): (value)
+                        namespace: (menction the namespace) dont menction it's belons to defult namespace
+                     spec: (pod specificatons)
+                      containers:
+                      - name: (name of the container)
+                        image: (image name)
+                        ports:
+                        - containerPort: (port of container)
+
+
+====================================================================================================================
+ then crete a pod check
+========================:- 1.#kubectl apply -f filename
+                           2.#kubectl get pods
+                           3.#kubectl get pods -o wide ("in this command shows the pod runing which node")
+                           4.#kubectl apply -f filenmae --namespace=name 
+                           5.#kubectl get events ("in this command shows the sheaduler assigned node")
+                           6.#kubectl describe pod podname ("details of pod")
+                           7.#kubectl get pod <podname> -o yaml                             
+
+*** inside pod we have container that containers dont have the ips
+
+*** we creted the pod that pod have the ip its dydnamic-ip (dynamic its mean its not standerd its changed)
+
+*** thats why crested services. 
+                                              ====END===
+
+
+
+
+
+
+

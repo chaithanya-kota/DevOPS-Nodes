@@ -1,0 +1,114 @@
+                                          kubernetes(3rd class)
+                                     ============================
+
+
+# kubectl api-resources
+
+
+how to comunicate the pod and containers?
+=========================================:- two types 1."with in the cluster" 2."out side of cluster"
+                                          1.#kubectl get pods -o wide (get the pod information or pod ip)
+           
+1. with in cluster
+-------------------:- its mean ("master,worker or nodes")
+                      1.#curl ip pod:portnumber
+                      
+                       EX
+                      ===: #108.34.36:8080 
+
+2. with out cluster
+-------------------:- its mean outside cluster (client) 
+
+*** we have pods that pods have the ips its dynamic thats why we created the services.
+
+
+SERVICE    
+=======:-in kubernetes service is responsible to making pods discoverble/accesable ,exposing them to the 
+         internet. that service identifies pods its labelselector.
+
+# kubectl get pods --show-labels (its show the labels of pos )
+
+
+         TYPES OF SERVICES
+         ------------------:-1. ClusterIP ("it's expose the internal cluster ip ")
+                             2. NodePort 
+                             3. LodeBalancer
+                             4. Headless 
+ 
+ClusterIP
+=========:-when we created a service we will get one virtual ip(cluster ip) it will get registered to the DNS(kube-dns) , this service rechable inside the cluster. 
+
+========================================================================================================================
+create service
+==============:- 
+apiVersion: v1
+kind: Service
+metadata: 
+  name: <service name>
+spec:
+  type: <ClusterIP/NodePort/LoadBalancer>
+  ports:
+  - port: <service port>
+    targetPort: <containerPort>
+  selector: 
+     <podlabelkey>: <value>
+
+create NodePort service
+========================:-
+apiVersion: v1
+kind: Service
+metadata:
+  name: krish-node 
+spec:
+   type: NodePort
+   ports:
+   - port: 80(its defalut)(service port)
+     targetPort: 8080(its container port)
+   selector:
+     app: king (must should be pod label same)
+===================================================================================================================
+how to connect out side cluster
+----------------------------------:- we have pod in container  ,then we have the cluster in that clister(master,worker)
+                                    take any one ip  and nodeport ip serch in web . 
+=======================================================================================================================
+how to check the how many ports lisening in server
+==================================================:- 1.#apt install net-tools
+                                                     2.#netstat -tulnp  
+
+
+
+
+
+
+pod 
+====:- normally pod deleted it's not to do recreated (or) becakup (or)resheadule.
+       when we created pod some "controllers" like 1.ReplicationController
+                                 -----------       2.ReplicaSet
+                                                   3.Deployment
+                                                   4.StatefullSet
+       those controllers to used we created pod its manage the pods.
+
+
+Static Pods
+===========:-Static Pods are managed directly kubelet,API server does not control over thispod.
+                                                   
+             * we created the Static Pods
+                              ------------:- ("#vi /etc/kubernetes/manifests/") this path only we created Static Pod
+                
+             * place the manifest file that path only, then its created Static Pods.
+             
+             * delete the StaticPod its recreated automatically done by the "kublet".
+
+             * we create the static pod ==> you describe the pod ==> here "Annotations" is like mirror somthing.. normal pod "Annotations" none. 
+         
+            
+                                         ====END===
+
+
+
+
+
+
+
+
+                                         

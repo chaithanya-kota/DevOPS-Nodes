@@ -1,0 +1,160 @@
+                                             volumes
+                                           ===========
+
+* we have two types apllications   1. statefull-->(its data backup) 
+
+                                   2. stateless-->(its no data)
+
+kubernetes support the volumes
+-------------------------------:>
+
+1. emptydir
+
+2. hostPath
+
+3. nfs
+
+4. awsElasticBlockStrore(EBS)
+
+5. configMaps
+
+6. azureFile
+
+7. azureDisk
+
+8. googlePersistentDisk
+
+
+emptyDir
+---------:- its temprory storage, once pod is delete, automatically the volume dirctory also deleted.
+
+           * its not we used, because its temprary.
+
+hostPath
+---------:- hostPath volume is our server based volume, in this we first "define the volume" next "assining the volume" 
+
+            * "asinine the volume Pod level " "mount the volume Containerlevel"
+
+            * Volumes are siblings of container
+
+
+# Mongo db pod with volumes(HostPath)
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mongodbrs
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+     metadata:
+       name: mongodbpod
+       labels:
+         app: mongodb
+     spec:
+       volumes:                  ---------> asinine vol
+       - name: hostpathvol       ---------> name of volume
+         hostPath:               ---------> type of volume
+           path: "/tmp/mongodb"  ---------> path to store
+       containers:
+       - name: mongodbcontainer
+         image: mongo
+         ports:
+         - containerPort: 27017
+         env:
+         - name: MONGO_INITDB_ROOT_USERNAME
+           value: devdb
+         - name: MONGO_INITDB_ROOT_PASSWORD
+           value: devdb@123
+         volumeMounts:          -----------------> mount volume
+         - name: hostpathvol    -----------------> name of volume
+           mountPath: "/data/db" ----------------> which folder to backup in container 
+
+
+* problem
+----------:- HostPath volumes its stored in the perticular node, we loss pod and its recreated the other worker-node that backup data not work.
+
+            * thats why we useing of "NFS-VOLUME"
+
+NFS softwear
+=============:-
+
+* we create instance for "nfs" its out side of k8s cluster
+ 
+* port open -->2049    ---->source -->custom |k8s vpc cider range|
+
+* we create server in that we dont have any nfs softwear.
+
+* install nfs its pen  source
+
+* [nfs 01-010-1 ~]# sudo apt install nfs-kernel-server
+
+* we create one directory that folder we give permissions like below
+
+* []# mkdir -p /mnt/nfs_backup
+
+* # sudo chown -R nobady:nogroup /mnt/nfs_backup
+
+* # sudo chown 777 -R /mnt/nfs_backup
+
+* # sudo vi etc/exports
+
+    in that file bottom we write
+
+    /mnt/nfs_backup  * (or) vpc cidr range  (give permission like (rw,sync,no_subtree_check,no_root_squash)) 
+
+* then restart  nfs service
+
+* # sudo exportfs -a
+
+* # sudo systemctl restart nfs-kernel-server
+
+* then rady to share our direactory "/mnt/nfs_backup"
+
+--------------------------------------------------------------------------------------------------------------------------
+
+next we install "nfs client softwear" in our k8s cluster all-nodes,master,
+
+* # sudo apt install nfs-common -y
+
+
+# Mongo db pod with volume(" nfs ")
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mongodbrs
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+     metadata:
+       name: mongodbpod
+       labels:
+         app: mongodb
+     spec:
+       volumes:                     ---------> asinine vol
+       - name: nfs_volume           ---------> name of volume
+         nfs:                       ---------> type of volume
+           server: nfs privateip    ---------> nfs private ip
+           path: "/mnt/nfs_backup"  ---------> path to store
+       containers:
+       - name: mongodbcontainer
+         image: mongo
+         ports:
+         - containerPort: 27017
+         env:
+         - name: MONGO_INITDB_ROOT_USERNAME
+           value: devdb
+         - name: MONGO_INITDB_ROOT_PASSWORD
+           value: devdb@123
+         volumeMounts:              -----------------> mount volume
+         - name: nfs_volume         -----------------> name of volume
+           mountPath: "/data/db"    ----------------> which folder to backup in container 
+
+
+
+
+
+ 
