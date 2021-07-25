@@ -1,0 +1,58 @@
+                                                                  DOCKER -2
+                                                                ============
+
+how to create image and push image in docker
+---------------------------------------------:-
+1. we created dockerfile
+              ----------:- instructions
+                           ------------
+                           1. FROM
+                           2. COPY 
+                           3. ADD
+                           4. RUN
+                           5. CMD
+                           6. ENTRYPOINT
+                           7. ENV
+                           8. WORKDIR
+                           9. EXPOSE
+
+# vi dockerfile
+From tomcat:tag(base image)
+COPY foldername/whear to copy in baese image
+
+# docker bulid -t <registry-name>/<repository-name>:version .
+            here:-> t-->tag some repository
+
+
+                    (or)
+
+# docker build -t kkc143/repo:143 -f filename .
+
+          
+
+we install before that imgae what need
+---------------------------------------:- like java maven ..etc(it's based on source code)
+
+how to push image
+------------------:-
+1. # docker push <registory-name>/<repository-name>:version
+
+first we give access: 1.# docker login -u <registory-name>
+
+passwd:
+
+
+
+how to create container
+-----------------------:-
+1.# docker run --name <nameof container> -p <port> image-nmae
+
+
+how to remove docker images at a time
+-------------------------------------:-
+ 
+1. # docker rmi $(docker images -q)
+
+
+
+

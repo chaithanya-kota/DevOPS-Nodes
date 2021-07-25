@@ -1,0 +1,121 @@
+                                                                    class-8
+                                                             ==================
+
+1. Docker-container
+   ----------------:- container we have "two types of applictions" --> 1. state full application
+
+                                                                       2. state less application
+
+
+   * State full aplication
+     ---------------------:- in this we have data its mean--> * data-base
+
+                                                              * some-softwear like --->(jenkins)-->(jenkins job informeation) 
+                                 
+                             * in this container we loss then data should be loss thats why we use volumes.  
+
+
+   * state less application
+     ----------------------:- in this we dont have any data .. that why we called state-less-application. 
+                          
+                              * in this we have only --> application like --> * maven-web-application (tomcat)
+                            
+                              * in this container we loss, then we loss only application not data thats why we dont need volumes.
+
+
+2. How communicate state-less-application  to state-full-applicatin
+   ----------------------------------------------------------------:-
+                                                                      * some times we have application thats application needs data-base (mong-db)
+  what we do
+  -----------:-
+               * we create two contaners one-->state- less (its application)
+
+               * we create onther container --> stete-full (mongo-db)
+ 
+  # docker run -d --name state-less -p 8080:8080 dockerhandson/spring-boot-mongo:1 --(run container)
+
+  # docker run -d --name state-full -e environment-value=key -e  environment-value=key mongo
+
+             HERE
+             -----:- in mongodb any version to check we have an environmental veriables like --> user-name , password like we give the values our own.
+
+ 
+  # docker run -d --name state-full -e MONGO-DB-ROOT-USERNAME=KRISH -e  MONGO-DB-ROOT-PASSWORD=KRISH mongo:version   
+
+                    * (we know the credentiols , we dont need out side of acces in this application thats why we dont need "port-maping")
+
+
+ then how to comunicate
+ -----------------------:-(spring-boot-mongo to mongo-db)
+
+ 
+   # docker run -d --name state-less -p 8080:8080 -e environmentvarible=key dockerhandson/spring-boot-mongo:1 
+
+                  HERE
+                --------:- -e environmental vareable this variable was in code our code (or) devolper team, the key-value was we giives the database.
+
+
+    # docker run -d --name state-less -p 8080:8080 -e SPRING-MONGO-USERNAME=KRISH -e SPRIG-MONGO-PASSWORD=KRISH dockerhandson/spring-boot-mongo:1
+
+
+ Now its communicate
+---------------------:- but we have the error WHY? both containers in default-network, thats why we create brdge-network. to atteched both 
+   EX
+  -----:-
+ # docker run -d --name state-less -p 8080:8080 -e SPRING-MONGO-USERNAME=KRISH -e SPRIG-MONGO-PASSWORD=KRISH --network new-bridge dockerhandson/spring-boot-mongo:1              
+ 
+ # docker run -d --name state-full -e MONGO-DB-ROOT-USERNAME=KRISH -e  MONGO-DB-ROOT-PASSWORD=KRISH --network new-bridge mongo:version   
+
+now its communicate fine ....
+
+3. in above containes unfortunetly deleted tha data will loss that why we use "VOLUMES" 
+                                              
+
+
+                                                                   VOLUMES
+                                                                 ===========
+
+
+1. volumes 
+   -------:- we have two types --> 1. mount-volume  (bind-mount)
+
+                                   2. dcoker persistent-volumes (local)(its recomended ..)
+
+
+    * mount-volumes
+      -------------:- its strode whatever folders or files to "container to our local system" (like--> ec2 home (or) temp)
+
+     # docker run -d --name state-full -v ~/mogonadb:/data/db -e MONGO-DB-ROOT-USERNAME=KRISH -e  MONGO-DB-ROOT-PASSWORD=KRISH --network new-bridge mongo:version
+
+          HERE
+         -----:> -V --> path-of-file in your sysytem filename:path of container file filename (we use number of volumes no limit)
+
+                  * now the container will delete , and we re create that container no data loss..
+
+        
+    * dcoker persistent-volumes
+      -------------------------:- its docker server stored volumes
+
+                                  # docker volume ls  -->(its show the volumes)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+
+
+
+
+
+
+    

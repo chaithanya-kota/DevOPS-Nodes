@@ -1,0 +1,118 @@
+                                              class-5
+                                        ================
+container its have multipull prosess inside?
+---------------------------------------------:- YES (technicolly) but it's not recomendedd.
+---------------------------------------------------------------------------------------------------------
+
+1.# docker run -m=120m --cpus=1-d --name (name-con) -p (hostport:con-port) image      * m = ram 
+
+2.# docker exec -it <container-name/ID> /bin/bash (login the container)
+               (or)
+3.# docker exec -it <container-name/ID> /sh
+
+4.# docker attch <container-name/ID>
+
+5.# docker rename <old-name> <new-name> (update the container-name)
+
+Docker stop vs docker kill
+----------------------------->
+docker stop (it's stop the container-process)
+
+docker kill (it's force fully stop the container-process)
+
+How to copy the conainer to docker-host (or)docker-server to container
+------------------------------------------------------------------------>
+
+1.# docker cp <source> <destnation>
+
+1.# docker cp /home/chai container-id:usr/local/tomcat
+              (path-file-source)              (path-file-destination)
+
+2.# docker cp container-ID:usr/local/tomcat/logs /home/ubuntu/logs
+---------------------------------------------------------------------------------------------------------------
+
+How to save the container in image
+------------------------------------>
+1.# docker commit <container-ID/Image> <image-name>
+
+------------------------------------------------------------------------------------------------------------------
+
+1.# docker container prune (its delete the stoped containers .)
+
+2.# docker system prune (its delete all type objects when its stop stage.)
+
+3.# docker rm -f $(docker ps -aq -f "status=exited")
+     Here  (q-"only-id" -f-"filter")
+    ------> 
+---------------------------------------------------------------------------------------------------------------
+
+Dockerfile
+-----------:- it's file we give the instructions to create image. we have specific key-words to write the dockerfile
+
+specific Key-words
+-------------------->
+FROM
+MAINTAINER
+COPY
+ADD
+RUN
+CMD
+ENTRYPOINTS
+WORKDIR
+ENV
+ARG
+LABEL
+EXPOSE
+VOLUME
+USER
+-------------------------------
+1. FROM
+   -----:-it's base image , on use it create our own image.
+
+2. MAINTAINER (it's ntg but owner-name)
+
+3. COPY	(we know them)
+
+4. ADD (its also same copy type and also--> its' download any type of like-->war,tar..etc files)
+        (ADD <URL> <destination-path>)  and also its work like "wget" (ADD paste-the -copy-link) 
+
+5. RUN --->executes the commands. its' executed  on base-image
+          (RUN mkdir, yum insatll ,wget, cmd ,...etc)
+
+6. CMD---> it's execute the commands while creating the container.
+               (EX--> when we create tomcat thats time we use.)
+             * (it's start the process in container)
+
+  **Can we have more than one "CMD" instruction?
+     (yes we can have. but only one CMD(latest/last in the order) wil be executed)
+
+
+#Shell Form
+CMD <commond with args> 
+#Executable Form
+CMD ["commond" , "Arg1","Arg2"]
+
+# Shell Form
+CMD java -jar springapplication.jar. 
+# Executable form
+CMD ["java", "-jar" , "springapplication.jar"] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

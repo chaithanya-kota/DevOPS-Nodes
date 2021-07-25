@@ -1,0 +1,165 @@
+                                                         class-6
+                                                      =============
+ENTRYPOINTS --> it's also command excuted while creating the container.
+=============
+
+
+what is difference b/w the CMD & ENTRYPOINTS?
+---------------------------------------------:-
+CMD command/instruction can be overridden while creating a container. ENTRYPOINT command/instruction can't be
+overridden while creating a container.
+
+Can we have both CMD & ENTRYPOINT in docker file? 
+-------------------------------------------------
+
+Yes we can have both in a docker file. CMD instructions will not be executed if we have both CMD & ENTRYPOINT.CMD instructions will be passed as an arguments for ENTRYPOINT.
+
+FOR Example:
+CMD ls
+ENTRYPOINT ["echo", "Hello"]
+
+IT Will be executed as below
+/bin/echo HELLO ls 
+
+# Out Put
+Hello ls
+
+
+Requirement always we have to execute sh catalina.sh . But argument by default it has to execute "start". But dynamically i should a option to pass different argument while creating a container.
+
+CMD start
+ENTRYPOINT ["sh", "catalina.sh"]
+
+
+Dockerfile
+-----------:-
+FROM base os 
+RUN echo "run instruction one"
+RUN create directory
+RUN install some application
+CMD ["echo", "CMD instruction"]
+
+create iamge
+------------:- 1.# docker bulid -t image-name:version
+               
+               2.# docker run imagename ls,pwd,cd .....etc (cmd)
+  
+
+Dockerfile
+-----------:-
+FROM base os 
+RUN echo "run instruction one"
+RUN create directory
+RUN install some application
+ENTRIPOINTS ["echo", " instruction"]
+
+create iamge
+------------:- 1.# docker bulid -t image-name:version
+               
+               2.# docker run imagename ls,pwd,cd .....etc (ENTIPOINTS)
+
+
+
+
+ENV
+=====:-we can set ENV varaiables using this instruction
+           ENV <key><value>
+
+
+Dockerfile.ENV
+--------------
+FROM base os 
+RUN echo "run instruction one"
+RUN create directory
+RUN install some application
+ENV <key> <value>
+ENV projct-home /opt/app
+COPY source-file $project-home/file
+
+
+WORKDIR
+=========:- (we have defult workdirector / (or) root for container), we can set the workdirctory it's like cd
+            
+           
+
+Dockerfile.WORKDIR
+--------------
+FROM centos
+RUN echo "run instruction one"
+RUN create directory
+RUN install some application
+ENV <key> <value>
+ENV projct-home /home/ubuntu
+COPY source-file $project-home/file
+WORKDIR $project-home
+
+
+USER
+=======:- (we have defalut user in container it's root user), we can set user
+
+ARG
+===:- its a VARIABLE like we create group and users and also you can set th ports
+
+     EX:-
+     ------ ARG user=jenkins
+            ARG group=jenkins
+            ARG uid=1000
+            ARG gid=1000
+            ARG http_port=8080
+            ARG agent_port=50000  
+
+       
+EXPOSE
+========:- which port the container-Running (it's just document for our conformeation purpose .)
+          EXPOSE 8080 (its just human purpose whic port this running ) 
+
+                        EX:-
+                       ------ ARG http_port=8080
+
+                              EXPOSE ${http_port}   (or) EXPOSE 8080       
+
+
+
+ARG
+===:- its a VARIABLE like we create group and users and also you can set th ports
+
+     EX:-
+     ------ ARG user=jenkins
+            ARG group=jenkins
+            ARG uid=1000
+            ARG gid=1000
+            ARG http_port=8080
+            ARG agent_port=50000   
+          
+
+LABEL
+======:- its  tags of dockerfile, we used this we wont build that time we passed the labels.
+
+
+        EX
+       -----> ARG branchName=devolp
+             
+              LABEL branchName $branchName
+
+ how can we pass this argument while creating a image
+
+# docker build -t imageNAme --build  
+
+
+
+
+what is difference b/w the "ENV" & "ARG" ?
+
+ENV => its also key and values but its the values we acess the after create image
+ 
+ARG => its also key and valus but its not acess its only in the dockerfile.
+
+
+
+
+
+  
+
+
+
+ 

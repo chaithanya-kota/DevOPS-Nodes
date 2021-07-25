@@ -1,0 +1,111 @@
+                                                             volumes-(docker persistent volume)
+                                                           =====================================
+
+1. docker persistent volume
+   -------------------------:- its highly recommended volumes
+   
+                               # docker volume ls
+
+                               # docker volume create -d local <volume-name>   (here--> d --drive)
+
+                               # doocker inspect <volume-name>  (its give the volume details) (in this we have mount path)
+
+                               # docker volume prune -->(its delete the un used volumes.)
+
+* unfortunetly docker server we loss then data also loss what to do ?
+
+
+thats why we use volume plugins
+--------------------------------:- its any system we used like --> AWS, AZURE, etc..
+
+                                   1. in AWS we know the volumes  its under EBS(elastic black storage..)
+
+* go-to-google type docker volume plugins like--> rexray volumes (https://rexray.readthedocs.io/en/v0.9.1/user-guide/docker-plugins/)
+
+
+  * in side this we have comands to how to create EBS docker-plugins-->    # docker plugin install rexray/ebs \
+                                                                             EBS_ACCESSKEY=abc \
+                                                                             EBS_SECRETKEY=123
+
+
+                                                           here
+                                                          ------:- EBS_ACCESSKEY= its aws account accesskey
+
+                                                                   EBS_SECRETKEY=its aws account security key
+ 
+                                                                   \ ==> its mean escape to next line..
+
+* # docker plugin ls --> (in this shows plugins)
+
+  # docker volume create -d <dirive-name> volume-name 
+
+  # docker volume create -d <rexray/ebs> krishvolume
+
+* to complete this prosses to check you are AWS VOLUMES its theair.. you can modeify also ==> its maximum capsity--> 16-TB
+
+
+
+
+                                                     Docker-Compile 
+                                                   ==================
+
+1. its atool for defining and running multi-container docker application.
+
+2. its a YML file, yml is a nothing but "file formet":- * version:
+
+                                                          services:  
+
+                                                          volumes:
+
+                                                          networks:
+ 
+
+
+EX:-
+----:> # vi docker-compse.yml   (its default name)
+
+version: '3.0' ----------------------------------------------->(docker compose file version)
+
+services: ------------------------------------------------->(how many services you need write it below its create containers)
+  spring: ------------------------------------------------->(its name of container)
+    image: dockerhandson/apring-boot-mongo ---------------->(its image name)
+    ports: ------------------------------------------------>(port maping you are container)
+    - 8080:8080
+    environment: ------------------------------------------>(we know the environmeants)
+    - MONGO_DB_HOSTNAME=mongo
+    - MONGO_DB_USERNAME=krish
+    - MONGO_DB_PASSWORD=krish
+    networks: --------------------------------------------->(which net-work to create container)
+    - mongonetwork
+
+  mongo: -------------------------------------------------->(onther container name)
+   image: mongo
+   volumes:
+   - mongodb:/data/db ------------------------------------->(mouting the volumes)
+   environment:
+   - MONGO_INTDB_ROOT_USERNAME=krish
+   - MONGO_INTDB_ROOT_PASSWORD=KRISH
+   networks:
+   - mongonetwork
+
+volumes:
+ mongodb:
+
+networks:
+ mongonework:
+    
+
+
+# docker-compose config -->(its every thing good its show the our yml-file {} like this)
+
+# docker-compose up -d --->(its create container HERE--> -d  detached mode)
+
+
+
+
+
+
+
+
+
+

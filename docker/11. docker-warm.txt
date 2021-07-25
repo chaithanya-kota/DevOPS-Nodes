@@ -1,0 +1,97 @@
+                                                                     docker-swarm
+                                                                  ================
+what is docker swarm service ?
+
+ * its collection of one or more containers same type(image/qapplication)
+
+
+
+
+1. docker swarm-cluster
+  ---------------------->*  its group of one (or)more masters rest of nodes
+
+                         * TCP port 2377 for cluster management communications
+
+                         * TCP and UDP port 7946 for communication among nodes
+
+                         * UDP port 4789 for overlay network traffic
+
+                         * ECP 50 overlay network with encrupition traffics allowed .
+
+2. docker swarm-master
+   --------------------:- # docker swarm init --advertise-add privateip-node -->(its create a manager) (or) ledar 
+
+                          # docker swarm join-token manager -->(its genrate the manager token) this masters status was "rechable" , docker recamanded more then 7 master,
+
+                          # docker swarm join-token worker -->(its genrate the worker token)  
+
+
+3. managers server should be odd number
+  -------------------------------------:-
+                                         * (n-1)/2 ==> here n= number of server
+
+                                         * EX--> n=2 --> (2-1)/2 its not work
+
+                                         * EX--> n=3 --> (3-1)/2 its work 
+
+4. docker net-works 
+  -------------------:- * networks--> "ovrlay" is drive and its name of "docker-swarm" -->(its created by default when you apply the command of docker swarm init)
+
+                        * if you created container in docker swarm that container under net-work of "docker-swarm"
+
+                        
+5. docker nodes ls
+   ----------------:- * HERE
+                        ----:-*	 status: ready--> its mean that node should be up and running .
+                              
+                              *  availability: active --> its mean node should be ready to run the containers. 
+
+6. docker service
+   ---------------:- in this  docker swarm-service we have two modes 1. Replica --> we dont menction replicas its take default 1/1
+
+                                                                     2. global 
+
+    # docker service create --name <name of container> -p  image-name 
+
+                 * then its create continer any worker-node , you can acces out sidde any public ip of cluster like nodes ips or master ip .
+
+    # docker service ls
+ 
+                * its show the how many services running.
+  
+    # docker service ps conatiner-name
+
+                * its give the details of container.
+
+    # docker service scale conatiner-name=number of replicas
+
+                * its create replicas in our cluster
+
+    # docker service rm container-name
+
+                * its delete the containers     
+
+    # docker service create --name <name of container> --replicas 3 -p <> image-name
+
+                 * its when create the container that time we create replicas how many you need.
+
+globel-mode
+------------:-
+               * when we crete the service in global mode its going to copy the all cluster servers(masters and workers).
+
+               * in this we dont use scale up and scale down               
+
+    # docker service create --name <name of container> --mode globel -p <> image-name
+
+
+
+
+
+
+
+
+
+
+
+
+

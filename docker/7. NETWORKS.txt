@@ -1,0 +1,62 @@
+                                                            calss-8
+                                                         ===============
+1. DockerNetworks
+-------------------:- 1.bridge
+
+                      2.host
+                
+                      3.non/null
+
+2. container create default-bridge networks is --> bridge-network  
+
+3. Networks
+  ----------:- in defult bridge-network containers can communicate with each other using only containers IPS,
+               
+               it won't be able access using container name/hostname.
+
+               every network have "IP-range"  like --> 17.0.3.14/16
+
+               If you can custmise the "IP-range" also.
+
+
+4. custom-bridgeNetwork
+   ----------------------:- in containers are running in coustom bridge it can comunnnicate with each other using "Name/IP"
+
+5. different-Network
+  ------------------:- containers running in different networks its not communicate..
+
+
+6. Networks-Commands
+  --------------------:- 
+                       1. #docker network ls
+                      
+                       2. #curl containerIP:port (or)ping ip (in this defult-networks in two containers we use this command to communicate.)  
+ 
+7. CREATE-NETWORKS
+  ----------------:-  # docker network inspect networkname
+                     
+                      # docker network create -d <drive-name> <name of custmise network>
+
+                      # docker network create -d bridge chaithu-network 
+
+                      # docker run -d --name <conatiner name> -p 8080:8080 --network <network name> image-name  (we attached the custmise-network use command)
+
+                      # docker network connect <Network-Name> <container-name>   (use this command attached network to container)
+                       
+                        * then we inspect the container we have "two net-works" we use them.
+
+                      # docker network disconnect <network-name> container-name 
+
+                      # docker run -d --name <conatiner-name> --network <netwrk-name-host> image-name
+
+                         * in this "host" its create uner host-network ==> in google ==> ip:host-poort  to acces them 
+                      
+                         * in this network only we create one-container in server.
+
+                     # docker run -d --name <container-name>  --network <network-name-none> image name
+
+                        * in this "none" network that application running but we dont acess anywear.
+
+                     # docker network prune
+
+                          * in this command we use not used network we deleted .

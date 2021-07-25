@@ -1,0 +1,109 @@
+                                                  class-3
+                                            =================
+Docker commands
+----------------:- 1. #docker build -t <registory>/<repository>: tag .
+
+docker create container
+-----------------------:- 1. #docker run -d --name <name-container> -p<port-number> imagename:tag
+     HERE
+    -----:- d(detached-mode)
+
+ HERE
+-------:- 1.Registory--> colection of repositorys
+           
+          2.Reopsitory--> multipull images with different tags
+
+docker image
+-------------:- it's package which contains everything to run apiece of softwear
+               
+               * it's have multipull layers (layer arctecure)
+
+how can we see the layers of an image?
+---------------------------------------:-
+ 1. #docker history image id 
+
+1.# docker login -u <user-name> -p <password> <URL> (for private repositorry)
+
+
+source code update(git hub update)
+-----------------------------------:-
+then go to your bulid-server git pull then bulid normal way(maven clean package)
+               -------------
+                  (or)
+git pull after and buld the docker image --> and push to dockerhub --> and run the container
+
+Docker create container
+------------------------:-
+1.# docker run --name <nome of container> -p <port-number> imagename
+  (# docker run --name krishnacontainer -p 8080:8080 kkc143/tomcat:1)
+
+1.# docker rmi (imageid(or)image-name)
+
+2.# docker rmi $(docker -q)(it's remove all images)
+
+
+how to save image (tar-formet)
+-----------------------------:-
+
+1. #docker save <image-name> -o <file-name>.tar
+
+how to pull (or) copy with out registory(dpckerhub)?
+-----------------------------------------------------:-
+we have 2 servers 1.server have the tarfile(image) its to scp to 2nd server
+
+1.# docker load -i<file-name>.tar (its open the image)
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+HOW TO CREATE ECR (amazon)
+--------------------------:-
+
+* it's private registory of aws
+
+1. create ECR account
+
+2. create IAM-ROLE (permissions: elastic container full acess)--> this ROLE atteched the DOCKER-Build server
+
+3. create IAM-ROLE (permissions: elastic container read only)--> this ROlE atteched the DEPLOYMENT-Server
+                                 (its only for pull perpose)
+
+4.docker push Ecr-registory/repository(NOw login acess how?)
+  
+*# aws ecr  get-login-password --region ap-south-1
+
+  then we get the--> token
+
+4.Docker(build/deployment)server--> we install awscli (it's for communicate the aws)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Docker image Reaname how?
+
+1.$ docker tag OldName:tag NewName:tag
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

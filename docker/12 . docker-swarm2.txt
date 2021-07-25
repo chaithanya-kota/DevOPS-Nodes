@@ -1,0 +1,59 @@
+                                                            docker-swarm-2
+                                                         ==================
+
+1. # docker nodes ls
+    
+         * its show the nodes details
+
+2. # docker node ps nodes-name
+
+        * its show the in this nodes how many container run..
+
+3. # docker service update --image <image name>  <service name>
+
+        * in this we have some times we update our application that time we use this.
+
+4. # docker service rollback <service name>
+
+        * in this we have some issues in update application that time we back to our previous version.   
+
+5. # docker sevice create <service name> -p <> --constraint "node.role==worker" image-name
+  
+         * its create the worker nodes only, because we give the command --constraint
+
+6. # docker nodes update --availability drain node-id
+
+         * in that node we dont create a services, we use this master node.
+
+
+label
+-----:-
+       we crete service in speasific  node or group of nodes's we use labels
+
+  # docker node update --label-add "labelname" node-id 
+
+  # docker service create --name <service name> -p <> --replicas 2 --constraint "node.labels==lablename" image-name
+
+
+
+docker-stack
+--------------:-
+
+what is docker stack?
+
+ * its collection of services of some application. it contains docker-compose file
+
+
+# docker stack ls
+
+   * its show the stacks in your node
+
+# docker stack deploy --compose-file docker-compose.yml <stack-name>
+
+   * its deploy to the containers .
+
+
+
+
+
+ 

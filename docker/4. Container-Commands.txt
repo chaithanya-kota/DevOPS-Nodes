@@ -1,0 +1,72 @@
+                                                         class-4
+                                                 ======================
+Container-Commands
+--------------------->
+1.# docker run -d --name<container-name> -p <hostaPort>:<containerPort> image-name
+    HERE     -d (Deatched-mode):- it's not use when run above command the container is "interactive-mode" it's mean
+   ------:->                      when close the window it' stop.
+                          (or)
+2.# docker create --name<container-name> -p <hostport>:<Container-Port> image-name
+
+3.# docker stop <container-name/ID>
+
+4.# docker start <container-name/Id>
+
+5.# docker restart <container-name/ID>
+
+6.# docker pause <container-name/ID> (it's puse the inside the container prosess)
+
+7.# docker top <container-name/ID> (it's show the inside of container)
+
+8.# docker unpause <container-name/ID> (it's unpause the container)
+
+9.# docker stats <container-name/ID> (its show the container CPU and Memory-utilization)
+
+What difference b/w the Run and Create
+---------------------------------------->
+1. Run :- it's create container and running the container.
+  -----
+
+2. create:- it's just create container  not running process. 
+  -------             
+  (# docker start <container-name(or)container-id>) it's run the container
+
+Running-containers
+------------------:-
+1.# docker ps(process) 
+2.# docker container ls
+
+More Details About-Containers
+-------------------------------:-
+1.# docker inspect containername(or)id (or) docker contaner inspect <container name/id>
+
+CONTAINER-COMMUNICATION
+------------------------:- 
+1. OUT SIDE --->(Server-ip:Host-port)
+2. INSIDE------>(Container-ip:Container-port)
+
+list all containers
+--------------------:-
+1.# docker ps -a
+2.# docker ls -a
+
+How to Debug the container applications:-
+----------------------------------------
+1.# docker log <container-name/ID> (its show the what happend inside (or)logs)
+
+2.# docker top <container-name/ID> (process)
+
+3.# docker exec <container-name/ID> ls(or)pws(or)cd (it's show the inside-container)
+
+
+
+
+
+
+
+
+
+
+
+
+
