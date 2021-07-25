@@ -1,0 +1,38 @@
+                                                                jenkins
+                                                          =================
+node ('ubuntu worker')
+{
+    java = tool name : "jdk 8"
+    env.JAVA_HOME = "${java}"
+    
+    stage('git')
+    {
+       // git branch: 'development', credentialsId: '2b9d1224-1b82-4047-89a4-d438580e52f3', url: 'https://github.com/chaithanya-kota/maven-web-application.git'
+    }
+    stage('build')
+    {
+       // def maven = tool name : "maven3.6.2"
+       // sh "${maven}/bin/mvn package"
+    }
+    stage('deploy')
+    {
+        sshagent(['8b9a8475-025d-45fd-9088-59cf52f48299']) {
+             //sh "scp -o StrictHostKeyChecking=no /home/ubuntu/workspace/pipeli-latest/target/maven-web-application.war ubuntu@65.0.129.140:/home/ubuntu/"
+             //sh "scp -o StrictHostKeyChecking=no /home/ubuntu/workspace/pipeli-latest/target/Dockerfile ubuntu@65.0.129.140:/home/ubuntu/"
+             //sh "ssh -o StrictHostKeyChecking=no ubuntu@65.0.129.140 docker build -t kkc143/new:143 ."
+             //sh "ssh -o StrictHostKeyChecking=no ubuntu@65.0.129.140 docker run -d --name krishcon -p 8080:8080 kkc143/new:143"
+             //sh "ssh -o StrictHostKeyChecking=no ubuntu@65.0.129.140 docker login -u kkc143 -p krishna123"
+             //sh "ssh -o StrictHostKeyChecking=no ubuntu@65.0.129.140 docker push kkc143/new:143"
+             }
+       
+    }
+    stage('pod')
+    {
+        sshagent(['5838e7f0-246f-461b-8eac-033a4bb70507']) {
+            //sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.6.147 sudo usermod -aG docker ubuntu"
+            //sh "scp -o StrictHostKeyChecking=no /home/ubuntu/kubernets.yml ubuntu@65.2.40.9:/home/ubuntu/"
+            //sh "ssh -o StrictHostKeyChecking=no ubuntu@65.2.40.9 kubectl apply -f kubernets.yml"
+    
+        }
+    }
+   
