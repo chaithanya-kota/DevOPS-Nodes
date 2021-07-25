@@ -1,0 +1,34 @@
+                                                               Elastic-load-balencer
+                                                             ==========================
+elb
+----:- elastic load balancing automatically distribution incoming application traffic across multiple targets, such as amzon ec2, containers,
+
+       or ipaddress in your vpc, elb and targets its in same region multipull avalibiltyzones .
+
+
+USERDATA
+---------:- * its nothing but pre-install apllicatioms, like when we create instance that time we have options in vpc bottom fill the user-data
+
+            * its like sudo yum install java
+                       sudo mkdir krishna
+
+            * this information like---/var/log
+
+
+elb
+----:-  we have a 1. application-loadbalencer 2.network-loadbalancer  3. classic-loadbalancer
+
+* layer-4-->(network-layer) -->TCP (in this we have defaultport of network-loadbalencer "80") its port-to-port
+---------:-
+
+* network load-balancer is resive the trsffic and send  to group of targets.
+ 
+
+
+* layer-7-->(application-layer)-->HTTP/HTTPS
+
+
+
+
+
+

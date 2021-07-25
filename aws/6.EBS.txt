@@ -1,0 +1,136 @@
+                                                        Elastic-block-storage
+                                                     ==========================
+Instace store:
+-------------:-
+* its temorary storage, data will be lost when you stop and start the server.
+
+* the size is fixed.
+
+* you cannot detech and assign to a different server.
+
+* we cannot chose type of driver for IS , default will be SSD.
+
+EBS VOLUME
+------------:-
+* its a persistant storage.
+
+* you can increase in untill 16TB but cannot decrece it.
+
+* we can detach and assign to the different server, but EBS or IS can be assinged to single server at any point.
+
+* we can chose between SSD and HDD . 
+
+
+#lsblk  (its show the storage of disks in missions)
+
+# cat /etc/fstab (its show the mounts in instances)
+
+# df -h
+
+how to create and attech the volume
+====================================:-
+
+* here we create instance that time we chose the volume.
+
+* goto instance  "# lsblk"  this command to show the disks
+
+* in this disk we store some data (or) applications.
+
+* # cat /etc/fstab (its importent "fstab" volume disk palced inside the fstab because restart instance that mount its connected )
+
+Atteched (or) assined EBS volume
+---------------------------------:-
+
+* goto --> EBS volumes --> volumes--> create volume .
+
+* here give the volume details like availabilty zone, same of your instance then only its work.
+
+* after finish work that volume is redy then atteched the instance.
+
+* then goto instace check disks,
+
+* # lsblk     here--> show the new volume disk.
+
+* that volume is only disk its not ready to use  what we do,
+
+* we do 3steps to formet to this disk to mount volume  1step ==> disk -to- formet disk  2step ==> formet disk-to- file system 3step==>file system -to- mount
+
+* step1
+  -----:- # fdsik /dev/xvdf 
+
+          * then enter the "M"
+          * next enter  "N"  (its new portition)  
+          * next enter four times
+          * next enter "w" (its save)
+
+HERE
+-----:- fdsik /dev/xvdf  fdsik--> formet disk  dev/xvdf--> path and file-name
+
+then check the disks use # lsblk   --> here new pertitons added .
+
+2STEP
+-----:- # mkfs.ext4 /dev/xvdf1 
+
+        * here ---> xvdf1 its partitons.
+
+3step
+-----:- # mkdir /krishvol
+
+       * chek # du -h /krishvol
+
+       * here check # lsblk --> krishvol not mount
+
+       * # mount /dev/xvdf1/krishvol/
+
+       * # lsblk --> its show them.
+       
+after finish 3 steps
+---------------------:- * store the some data in this volume , and restart the instance, that mount is gone,  why 
+
+                        "because that volume not in fstab"
+                                                    ------
+                         *  # nano /etc/fstab
+ 
+                         * here we give the details of our volume like  /dev/xvdf1    /krishvol  copy the above label paste here
+
+how to volume increase in EBS
+------------------------------:-
+
+step1
+------: goto aws ebs volumes select our volume and increse them somthing like 15gb
+
+step2
+-----: goto ec2 mission # lsblk --> disk -15gb, but partitons -->10gb what we do
+
+      * # growpart /dev/xvdf 1
+
+      * # lsblk --> now its shows the 15gb partions
+
+
+                                                               ======(or)======
+
+
+
+1.how to increase volume in ec2?
+
+* go to AWS increase volume size
+
+   come to our ec2-server # df -h
+
+   its dosent update,
+
+   # resize2fs name of disk
+
+   # reboot instance
+
+   # df -h    
+
+
+
+
+
+
+
+
+
+

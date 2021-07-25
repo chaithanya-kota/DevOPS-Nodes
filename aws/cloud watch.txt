@@ -1,0 +1,8 @@
+                                                              cloud-watch
+                                                           =================
+
+step:-1
+--------:- we create the IAM-roles the permissions of 1.cloud watch full acess
+
+                                                      2.cloudwatch logs full acess
+

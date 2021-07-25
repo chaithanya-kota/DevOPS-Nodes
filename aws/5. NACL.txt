@@ -1,0 +1,20 @@
+                                                           SECURITY-FIREWALLS(SG,NACL)   
+                                                         ================================
+
+* security-group
+  --------------:- statefull fire-wall (it was a get the one side permission,like in-bound permission no need the out-bound permission)
+
+                 * its allow the ec2 instance level.
+
+
+* NACL(net-work acess controll list)
+  --------------------------------:- stateless fire-wall (it was allow the traffic was in-bound and out-bound with permission like two permission)
+
+                                   * its allow the only VPC subent level.
+
+                                   * NACL its default create
+
+                                   * normally NACL aplicable in vpc-subnets EX:- VPC have 3-subnets nacl applicable 3 (or) 2subnets.
+
+                                   * very carefull of nacl.
+

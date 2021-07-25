@@ -1,0 +1,19 @@
+                                                             VPC-2 
+                                                        =============
+1.VPC PEERING
+  ------------:- * it nothing but two vpc connctions like (same accuot vpc , are different account vpc)
+
+**imp* its must VPC ip range not same because its overlap, its one to one connection.
+
+step 1 => goto vpc here we have option VPC-PEERING, give the details and other VPC details to connect them.
+
+step 2 => vpc's are connected, but how to communicate with help of "ROUT TABLE" here we have local rout and IGW, added the "peering rout"  
+         
+          how added => give the other VPC ip and select the perring option
+
+step 3 => goto other VPC do same thing like step 2
+
+HOW TO COMUNICATE VPC'S OTHER ACCOUNT
+--------------------------------------:-
+
+1. process are same like above we menction the different account, and religion.

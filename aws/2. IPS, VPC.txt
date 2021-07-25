@@ -1,0 +1,73 @@
+                                                                  vpc-1
+                                                              ============
+
+1. IP-tabels
+  -----------:-
+                * {private-ip}->[public-ip]---------------->{isp}------------->{inter-net}
+                      |             |                         |
+                  [our system   [sys-pub-ip]             [inter provider]
+                    ipconfig  ]     (or)
+                                 [nat-gat]           
+   
+
+* here like our laptop got cmd type ipconfig get the private ip, and goto google type what is my ip here you get public ip
+
+* any thing to communicate the internet only public-ip not use private-ip.
+
+
+Subnets
+--------:- ip are diveded into 3 caders like A B C
+
+* big companys used the A, in home used C 
+
+
+255.0.0.0/8 => here how many ips => number of zeros 3 then 255*255*255= 1million ips --> its ipv4 
+
+255.255.0.0/16 => 255*255= 60 thousand ips
+
+255.255.255.0/32 => 254 ips
+
+
+* in ips doubts goto google type subent ip calculater use it.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+VPC
+----:- 
+
+*imp ** Avalability zones inside we have the subnets, subnets inside we have servers (or) instances
+
+
+step 1 => we created only VPC its just "vpc" in this dont have the avalaibilty "ZONES"
+
+step 2 => thats why we create "SUBNETS" with in avalaibilty zones  then attech the VPC
+
+step 3 => VPC how to comunicate the inter-net with help of "IGW", create attech the vpc
+
+step 4 => one subnet other subents how comunicate localy with help of "ROUTING TABLE", we create rout-table attached VPC and also attched the "SUBNETES" 
+
+step 5 => then how to give the security in this VPC with help of "SECURITY GROPS" create and attched them. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

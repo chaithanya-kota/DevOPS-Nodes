@@ -1,0 +1,78 @@
+                                                             nat-gateway
+                                                           ==============
+
+1.PUBLIC-SUBNET
+  --------------:- in this subnetes rout the direct to IGW its called pulic-subnet, like routing table direct connection the IGW
+
+2.PRIVATE-SUBNET
+  ---------------:-  any subnet which is not rout the directly to the IGW  its called private subnet.
+
+
+3. # ssh -i key.pem ec2-user@private subnet ip
+
+   here
+  ------:- 1. those 2 subnets in same VPC
+           2. key.pem => public subnet key
+
+
+
+how to connect whith out pem-key instance
+------------------------------------------:- 
+
+* creat the iam-role in ec2 permission of ssmf full access ,and ssmmanagedinstanceCore finish this work atteched the instance.
+
+* after some time 
+
+* goto management & governance ==> here system Manager clik it then goto session manager clik it goto start sesion 
+           
+
+NAT-GATEWAY
+------------:- * network address trenselation 
+
+               * its only one job thats whatever trafic come to private subnets its conveted to public ip and send through igw.
+
+               * traffic send only inside to outside its work , but out side to inside its not work.
+
+create Nat-gateway
+-------------------:- * we deploy the nat-gate that time we attched the public-subnet, (because traffic sends this subnet) and also elastic-ip
+
+                      * here elastic-ip was mandatory nate-gate because its reboot tahts why.           
+ 
+                      * after do this work, goto private subnet rout-table here to attched the rout to nat-gat
+
+
+Vpc- ENDPOINTS
+---------------:- * its private-subnet  dont use the nat-gate how to download something like S3 files, we use VPC-ENDPOINTS.
+
+                  * VPC-ENDPOINTS its having private conectvity to different services.
+
+
+* Emdpoints:- create endpoints click goto here chose the  S3 storage---> gateway  select them.
+
+* then attech the vpc and private-ssubnet rout . after some time to check the rout-table its automatically genreted routing.  
+
+* its gate-way thats why its  automatically genreted routing.
+
+* then goto that instance and check the S3 connection like :- # wget url of s3-bucket file (or) # aws s3 ls
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
