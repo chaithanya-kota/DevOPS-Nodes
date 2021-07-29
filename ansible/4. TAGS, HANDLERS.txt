@@ -1,0 +1,198 @@
+                                                                 ansible-4
+                                                              ==============
+* how to remove you are "package"
+
+# vi file.yml
+
+---
+- hosts:
+  user:
+  tasks:
+  - name: remove the package
+    package: name=apche2 state=apsent
+
+# ansible-playbook file.yml
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+* install & restart package and added the some files
+
+# vi file.yml
+
+---
+- hosts:
+  user:
+  tasks:
+  - name: remove the package
+    package: name=apche2 state=apsent
+  - name: start the service
+    service:
+     name: apache2
+     state: started
+  - name: deploy the file
+    copy:
+     src: var/www/html/index.html
+     dest: var/www/html/index.html
+  - name: restart apache2
+    service:
+     name: apache2
+     state: restarted
+
+# ansible-playbook file.yml
+
+:set number (its given the number in files)
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+TAGS:
+-----:- assume your play-book have the multipull tasks but, we run the single (or)multipull task that time we used "tags"
+
+# vi file.yml
+
+---
+- hosts:
+  user:
+  tasks:
+  - name: remove the package
+    package: name=apche2 state=apsent
+  - name: start the service
+    service:
+     name: apache2
+     state: started
+  - name: deploy the file
+    copy:
+     src: var/www/html/index.html
+     dest: var/www/html/index.html
+    tags:
+     - deploy_file
+  - name: restart apache2
+    service:
+     name: apache2
+     state: restarted
+
+# ansible-playbook file.yml --tags deploy_file ----->(name of the tags)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+# vi file.yml
+
+---
+- hosts:
+  user:
+  tasks:
+  - name: remove the package
+    package: name=apche2 state=apsent
+  - name: start the service
+    service:
+     name: apache2
+     state: started
+  - name: deploy the file
+    copy:
+     src: var/www/html/index.html
+     dest: var/www/html/index.html
+    tags:
+     - deploy_file
+  - name: restart apache2
+    service:
+     name: apache2
+     state: restarted
+    tags:
+     - restart_apache2
+
+# ansible-playbook file.yml --tags deploy_file,restart_apache2
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+* we have no.of tags in that we dont, run the 1 tag , how can do it? 
+
+
+# vi file.yml
+
+---
+- hosts:
+  user:
+  tasks:
+  - name: remove the package
+    package: name=apche2 state=apsent
+    tags:
+     - remove the package
+  - name: start the service
+    service:
+     name: apache2
+     state: started
+    tags:
+     - start_service
+  - name: deploy the file
+    copy:
+     src: var/www/html/index.html
+     dest: var/www/html/index.html
+    tags:
+     - deploy_file
+  - name: restart apache2
+    service:
+     name: apache2
+     state: restarted
+    tags:
+     - restart_apache2
+
+# ansible-playbook file.yml --skip-tags restart_apache2  
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+handlers:
+----------:- assume we have a play-book  in that playbook no.of tasks is there, but we have a "condition like run play-book that time, 
+
+             task result was changed that time only onther task exuted". we use "handlers"
+
+
+# vi play-book.yml
+
+---
+- hosts:
+  user:
+  tasks:
+  - name: intsall the package
+    package:
+     name: apache2 
+     state: prasent
+     notify:
+         - restart apche2
+  handlers:
+  - name: restart apche2
+    service: 
+      name: apche2
+      state: restarted
+
+# ansible-playbook play-book.yml 
+
+HERE
+----:- notify :- that task result was changed, that time its notify the handlers,
+
+
+* in this situation "when apche2 intstall that time only its restarted"  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

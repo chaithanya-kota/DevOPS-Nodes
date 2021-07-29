@@ -1,0 +1,61 @@
+                                                   ansible-2
+                                                ================
+
+* Ansible ad hoc commands:
+  -------------------------> it single linux commands
+
+# ansible -m file ip-of-node -a 'path=/mnt/krishna'  ----> this command use for read the file
+
+here:- 'file' is module  '-a' attribute
+
+# ansible -m file ip-of-node -a 'path=/mnt/krishna/kota  state=touch'   ---> this command used for create the file
+
+# ansible -m file ip-of-node -a 'path=/opt/chaithu state=apsent' 
+
+create "play-books"
+=====================:-
+
+* path of palybook, name of play-book its our wish..
+
+# vi krishna-playbook.yml
+
+---
+- hosts:
+  user:
+  tasks:
+  - name:
+    module:
+
+----------------------------------------------------------------------------------------------------------------------------
+
+# vi file-playbook
+
+---
+- hosts: ip-of-host
+  user: which user to run (root, ubuntu, any-user)
+  tasks:
+  - name: its our wish (create a file in host)
+    file: path=/mnt/krishna state=touch
+
+# ansible-playbook playbookname  -----> this command to run playbook file 
+
+here we get the 2 lines: play , tasks,
+
+play :- its means play the host-ips 
+
+tasks:- sucess, changed, faill 
+
+------------------------------------------------------------------------------------------------------------------------------
+
+* create the file with different "permissions"
+
+# vi file-playbook
+
+---
+- hosts: ip-of-host
+  user: which user to run (root, ubuntu, any-user)
+  tasks:
+  - name: its our wish (create a file in host)
+    file: path=/mnt/krishna state=touch mode=400 owner=ubuntu
+
+  

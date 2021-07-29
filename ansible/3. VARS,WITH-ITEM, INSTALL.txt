@@ -1,0 +1,131 @@
+                                                                    ansible-3
+                                                               =================
+
+* copy the file
+  --------------:-
+
+# vi playbook
+
+---
+- hosts: ip-of-host
+  user: name of users
+  tasks:
+  - name: copy the file
+    copy: src=/mnt/krishna dest=/home/ubuntu
+
+----------------------------------------------------------------------------------------
+
+* create file, write that file single line
+
+# vi playbook
+
+---
+- hosts: ip-of-host
+  user: name of users
+  tasks:
+  - name: copy the file
+    copy: dest=/mnt/krishna.file  content='hello world this is krishna'
+--------------------------------------------------------------------------------------------
+
+* we write same content with different multipull files--> we used "variables"
+
+variablr work like "X=10"
+
+print x its given 10
+
+
+# vi playbook
+
+---
+- hosts: ip-of-host
+  user: name of users
+  vars:
+    krishna:  'hello world this is krishna'
+  tasks:
+  - name: copy the file
+    copy: dest=/mnt/krishna.file  content='hello world this is krishna'
+  - name:
+    copy: dest=/home/ubuntu/kota.file content="{{krishna}}"
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+* how to copy host to server file??
+ 
+module: fatch
+
+# vi playbook
+
+---
+- hosts: ip-of-host
+  user: name of users
+  tasks:
+  - name: copy the file
+    fatch: src=/mnt/krishna.file  dest=/king
+
+# ansible-playbook playbook
+
+here our server inside "/king  in that ip-of-host  in that we have of files"
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+* how to multiplay conspet
+
+# vi playbook
+
+---
+- hosts: ip-of-host
+  user: name of users
+  tasks:
+  - name: fatch file
+    fatch: src=/mnt/krishna.file  dest=/king
+
+- hosts: ip-of-anther-host
+  user: root
+  tasks:
+  - name: fatch the file
+    fatch:  src=/mnt/krishna.file  dest=/king
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+variables--> dosent work in fatch  because "variables" are global level like its "users" not in under "tasks"
+
+with_items ---> thes like variables but its are under the "tasks" 
+
+---
+- hosts: ip-of-host
+  user: name of users
+  tasks:
+    with_items:
+              -hello world this is krishna
+  - name: copy the file
+    copy: dest=/mnt/krishna.file  content='hello world this is krishna'
+  - name:
+    copy: dest=/home/ubuntu/kota.file content="{{item}}"
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+* how install aplication restart 
+ --------------------------------
+
+---
+- hosts:
+  user:
+  tasks:
+  - name: install application
+    package: name=apache2 state=prasent
+  - name: restart tha apache2
+    service: name=apache2 state=started
+ 
+   
+
+
+
+
+
+
+
+
+
+
+
+
+    

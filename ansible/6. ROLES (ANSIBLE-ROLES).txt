@@ -1,0 +1,192 @@
+                                                                          ansible-6
+                                                                       =================
+
+***imp ***
+
+* roles
+--------:- its organiation of your play-books how to create "roles"
+
+# mkdir role  (its standerd-name)
+
+in that # ansible-galaxy init test-roles
+
+# ansible-galaxy init test-roles   --> run this command its create the test-role directory, in that we have some folder's
+
+README.md   defaults  files   handlers  meta  tasks  templates tests  vars   
+
+
+EXAMPLE
+--------:- how to install git and apache2, through the ansible-roles
+
+# vi test-role/tasks/install-git.yml
+
+- name: install git
+  package: name=git  state=prasent
+
+# vi test-roles/tasks/install-apache.yml
+
+- name: install apache2
+  package: name=apache2 state=prasent
+
+
+*** we write tasks in this folder because its "tasks-folder"
+
+*** after finish this we have one default folder in the tasks thats "main.yml"
+
+# vi main.yml
+
+- include: install-git.yml
+- include: install-apache.yml
+
+-------------------------------------->(here: how many files like: install-git.yml we mention those files only applicable )
+
+after
+------:- we create "master-playbook.yml"  path is (out side of roles)
+
+vi master-playbook.yml
+
+---
+- hosts: dev-env
+  user: root
+  roles:
+     - test-role
+
+
+here:- under roles "role folder name"
+
+# ansible-playbook master-playbook.yml -i krishna
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+* how to use handlers in roles
+---------------------------------:-
+# cd roles/test-role/
+
+README.md   defaults  files   handlers  meta  tasks  templates tests  vars
+
+# cd handlers
+
+# vi restart-apache2.yml
+
+- name: restart-apache2
+  service: name=apache2 state=started
+
+# vi main.yml
+
+- include: restart-apache2.yml
+
+# cd ..
+
+# vi test-roles/tasks/install-apache.yml
+
+- name: install apache2
+  package: name=apache2 state=prasent
+  notify:
+       - restart-apache2
+
+# cd ../../
+
+vi main-playbook.yml
+
+---
+- hosts: dev-env
+  user: root
+  roles:
+       - tast-roles
+
+# ansible-playbook master-playbook.yml -i krishna
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+how to copy the files in ansible-roles
+----------------------------------------
+
+# cd roles/test-role/
+
+README.md   defaults  files   handlers  meta  tasks  templates tests  vars
+
+# cd files
+
+* what are the files we need, those files in this folder.
+
+
+# vi restart-apache2.yml
+
+- name: restart-apache2
+  service: name=apache2 state=started
+- name: copy the index.html
+  copy: src=file/index.html dest=/var/www/html/index.html
+
+
+# ansible-playbook master-playbook.yml -i krishna
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+how to run the "mutipull" roles in "ansible-roles"
+-----------------------------------------------------:-
+
+vi master-playbook.yml
+
+---
+- hosts: dev-env
+  become: user1
+  become_user: user1
+  roles:
+      - test-role
+  become: user2
+  become_user: user2
+  roles:
+      - dev-role
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

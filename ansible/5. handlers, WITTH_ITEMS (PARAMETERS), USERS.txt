@@ -1,0 +1,189 @@
+                                                             ansible-5
+                                                            ============
+
+* inventry-files
+  ---------------:- this nothing but your hosts ips inside.
+
+vi krishna
+
+[dev-env]
+
+10.0.0.1
+11.0.0.1
+
+:wq!
+
+* this is inventry-file
+-----------------------
+
+vi play-book
+
+---
+- hosts: dev-env
+  user:
+  vars:
+       install-package:
+                    - apache2
+                    - vsftpd
+                    - docker.io
+  tasks:
+  - name: intsallation
+    package: name="{{install-package}}" state=prasent
+    notify: restarted
+  handlers:
+  - name: restarted
+    service: name=apache2 state=restarted
+  - name: restartd
+    service: name=vsftpd state=restarted
+
+# ansible-playbook play-book.yml -i krishna
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+vi play-book
+
+---
+- hosts: dev-env
+  user:
+  vars:
+       install-package:
+                    - apache2
+                    - vsftpd
+                    - docker.io
+  tasks:
+  - name: intsallation
+    package: name="{{install-package}}" state=prasent
+    notify: restarted
+  handlers:
+  - name: restarted
+    service: name="{{item}}" state=restarted
+    with_items:
+                - apache2
+                - vsftpd
+    notify: restarted
+
+
+* handlers notify the theair it self "maxmum its notify the 3"
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+how to cretae groups and users?
+
+# vi users.yml
+
+---
+- hosts: dev-env
+  user:
+  tasks:
+  - name: create group
+    group: name=kota-group gid=500
+  - name: create user
+    user: 
+      name: user1
+      password: 'user1'
+      group: 500
+      uid: 600
+
+# ansible-playbook users.yml -i krishna
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+how to cretae groups and multipull users?
+
+# vi users.yml
+
+---
+- hosts: dev-env
+  user:
+  tasks:
+  - name: create group
+    group: name=kota-group gid=500
+  - name: create user
+    user: 
+      name: "{{item}}"
+      password: 'user1'
+      group: 500
+      uid: 600
+    with_items:
+             -king
+             -queen
+             -minster
+
+# ansible-playbook users.yml -i krishna
+
+* in this way all users get the same "password,uid", we need different parameters like
+------------------
+
+# vi users.yml
+
+---
+- hosts: dev-env
+  user:
+  tasks:
+  - name: create group
+    group: name=kota-group gid=500
+  - name: create user
+    user: 
+      name: "{{item.name}}"
+      password: "{{item.password}}"
+      group: "{{item.group}}"
+      uid: "{{item.uid}}"
+    with_items:
+         - { name: 'user1', password: 'user1', uid: '600', group: '500' }
+         - { name: 'user2', password: 'user2', uid: '700', group: '500' }
+             
+
+# ansible-playbook users.yml -i krishna
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

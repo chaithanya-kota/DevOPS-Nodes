@@ -1,0 +1,15 @@
+                                                                          ansible-6
+                                                                       =================
+
+***imp ***
+
+* roles
+--------:- its organiation of your play-books how to create "roles"
+
+# mkdir role  (its standerd-name)
+
+in that # ansible-galaxy init test-roles
+
+# ansible-galaxy init test-roles   --> run this command its create the test-role directory, in that we have some folder's
+
+README.md   defaults  files   handlers  meta  tasks  templates tests  vars   
