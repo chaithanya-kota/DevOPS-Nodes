@@ -1,0 +1,119 @@
+#!/usr/bin/env grrovy
+* Declarative pipeline must be enclosed within a pipeline block */
+pipeline {
+     /*agent section specifies where the entire Pipeline script will execute in the Jenkins environment */
+    //agent any
+	agent {
+	
+	label 'master'
+	
+	}
+    
+	/* Here we can declare the environemnt variables */
+    environment {
+      CF_VERSION = '1.0'
+      CF_API = ''
+      DEPLOY_ENV = "${params.environment}"
+   }
+    /**
+     * tools to auto-install and put on the PATH
+     * some of the supported tools - maven, jdk, gradle,git
+     */
+    tools {
+        maven 'maven3.6.3' 
+    }
+    
+    triggers {
+   
+     pollSCM('* * * * *')
+    
+   }
+   
+   
+   // Configure Pipeline-specific options
+   options {
+      
+       // Add timestamps to output
+       timestamps()
+       overrideIndexTriggers(false)
+       // timeout job after 60 minutes
+       timeout(time: 60,unit: 'MINUTES')
+       // Keep only last 5 builds
+       buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5'))
+       disableConcurrentBuilds()
+   }
+ 
+     /**
+     * stages contain one or more stage directives
+     */
+    stages {
+       
+        
+        stage('CheckoutCode') {
+            steps {
+                git branch: 'stage', credentialsId: 'fc8c3d87-2a92-4de9-9e00-c38f5e780b97', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git'
+            
+                sh "echo CF_VERSION ${CF_VERSION}"
+            }
+        }
+        
+        stage('MavenBuild') {
+            steps {
+               sh 'mvn clean package'
+            }
+        }
+        
+        stage('SonarQubeReportExecution') {
+            steps {
+               sh 'mvn sonar:sonar'
+            }
+        }
+        
+        stage('UploadArtifactIntoNexus') {
+            steps {
+               sh 'mvn deploy'
+            }
+        }
+        
+        
+        stage('DeployApplicationIntoTomcat') {
+            steps {
+            // provide SSH credentials to builds via a ssh-agent in Jenkins
+              sshagent(['293267cf-8c00-4465-a36f-4ed77134166e']) {
+                 sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.15.29.188:/opt/tomcat9/webapps/"
+               } 
+            }
+        }
+        
+    }
+    /**
+     * post section defines actions which will be run at the end of the Pipeline run or stage
+     * post section condition blocks: always, changed, failure, success, unstable, and aborted
+     */
+     
+    post {
+        always {
+            cleanWs()
+        }
+        success {   
+               mail to: 'devopstrainingblr@gmail.com',
+                    bcc: 'devopstrainingblr@gmail.com',
+                    cc: 'devopstrainingblr@gmail.com', 
+                    from: 'devopstrainingblr@gmail.com', 
+                    replyTo: 'devopstrainingblr@gmail.com',
+                    subject: "Pipeline Build is over .. Build # is ..${env.BUILD_NUMBER} and Build status is.. ${currentBuild.result}.",
+                    body: "Pipeline Build is over .. Build # is ..${env.BUILD_NUMBER} and Build status is.. ${currentBuild.result}."
+                   
+            cleanWs()
+        }
+        failure {
+            mail to: 'devopstrainingblr@gmail.com',
+                    bcc: 'devopstrainingblr@gmail.com',
+                    cc: 'devopstrainingblr@gmail.com', 
+                    from: 'devopstrainingblr@gmail.com', 
+                    replyTo: 'devopstrainingblr@gmail.com',
+                    subject: "Pipeline Build is over .. Build # is ..${env.BUILD_NUMBER} and Build status is.. ${currentBuild.result}.",
+                    body: "Pipeline Build is over .. Build # is ..${env.BUILD_NUMBER} and Build status is.. ${currentBuild.result}."
+                   
+        }
+    }
