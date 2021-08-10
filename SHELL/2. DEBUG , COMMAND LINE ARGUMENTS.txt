@@ -1,0 +1,151 @@
+                                                   shell-2
+                                                 ===========
+1. Debug Mode
+   -----------:- sh -x fileName (its cmd give the all detailes file)
+                 
+                EX
+              ------> vi hello.sh (filleName its contain 255 charectors, capital latters, numbers, under_score,dot, dont use commands name)
+                      vi Krishna_chaithu143.sh
+                       
+                       echo "hello krishna"
+                       echo "wellcome to shell"
+                       echo "today date is"
+                       date
+                       echo $(date)
+                       echo $'date'
+                      
+Debug
+------> sh -x Krishna_chaithu143.sh
+  
+       * its show the all details.
+       
+       Ex-2--> debug "some lines"
+                    
+                       echo "hello krishna"
+                       set -x
+                       echo "wellcome to shell"
+                       set +x
+                       echo "today date is"
+                       date 
+                       echo $(date)
+                       echo $'date'
+                      
+ * Run normally and also Run--> # sh -x filename 
+
+2. comments
+-------------:- its use to understand the code or readabilty 
+        
+                * shell script support the two types comments 1. S L C  2. M L C
+                
+                * #--> single line comments
+                
+                * <<multi line comments
+
+
+3. variable
+------------:- its memory location, where we can store the value
+              
+              * a=10
+                b=10
+                name=krishna
+                  
+                   HERE---> a,b,name(Variable)
+                            10,krishna(Value)
+
+Types of Variables two types
+------------------------------:- 1. System Defined Variable
+                                 2. User Defined Variable
+
+1. System Defined Variables (or) Bash variable
+
+  * how know the variables ?
+  * # env
+    # printenv
+    # set .. those are cmd to show the varibles
+  
+  * # echo VariableName (its show the variable)
+    
+    # echo $variableName (its give the varible-->Value)
+    
+    # export variblename=value (its change the value temproray) 
+
+2. user defined variable
+   ----------------------> # vi userVarible.sh
+                             
+                            a=10
+                            b=10
+                            name=krishna
+                            
+                            echo "a varible value is:" $a
+                            echo "b varible value is:" $b
+                            echo "name varible value is:" $name
+                     
+                           # sh filename(excuted)
+           
+ * user variables files in that file we add the "system variables"
+                        
+                           # vi userVarible.sh
+                             
+                            a=10
+                            b=10
+                            name=krishna
+                            
+                            echo "a varible value is:" $a
+                            echo "b varible value is:" $b
+                            echo "name varible value is:" $name
+                            echo "user name is:" $USER
+                            echo "history size is:" $HISTSIZE
+
+Command Line Arguments
+------------------------:- while  run the scripting ,that time passing the values.
+
+                         * its used purpose of RE-Useble of shell script file.
+                   
+                         EX
+                        ----> vi dbackup.sh
+                              
+                              echo $0 -->(its show the fileName)
+                              echo $1 -->1st arg
+                              echo $2 -->2nd arg
+                              echo $10 ---> 10th arg(its wrong)
+                              echo ${10} --> 10th arg (correct way)
+                              echo $# ---> number of arg
+                              echo $* ---> all the arg in one string
+                              echo $@ ----> all the arg but each arg in one string
+                              echo $$ -----> PID (prosess id)
+                              date
+                              echo $? ---> previous cmd execution status
+                               0 ---> successfull
+                               127 --> starnded erorr of command not found.
+            
+                             # sh filename Value(arg1) value(arg2)        
+
+
+                  EX-2
+                 ------:> if conditions (its used for how to use the command line arg file)
+
+                              vi dbackup.sh
+                              
+                              if [ $# -eq 2 ]
+                              then
+                              echo $0 -->(its show the fileName)
+                              echo $1 -->1st arg
+                              echo $2 -->2nd arg
+                              echo $10 ---> 10th arg(its wrong)
+                              echo ${10} --> 10th arg (correct way)
+                              echo $# ---> number of arg
+                              echo $* ---> all the arg in one string
+                              echo $@ ----> all the arg but each arg in one string
+                              echo $$ -----> PID (prosess id)
+                              date
+                              echo $? ---> previous cmd execution status
+                               0 ---> successfull
+                               127 --> starnded erorr of command not found.
+                              else
+                              echo "usage sh $0 arg1 arg2"
+                              fi --->(close if condition)
+
+
+
+                   
+   

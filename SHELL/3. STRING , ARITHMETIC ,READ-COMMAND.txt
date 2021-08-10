@@ -1,0 +1,55 @@
+                                                     shell-3
+                                                 ===============
+1.string
+  ------:- string is nothing but, a zero or more characters enclosed in a single quote or double.   
+
+          * IN shell string ---> we use like 'krishna' (or) "krishna" (single cods or double cods)
+     
+* string_var
+-------------> string_var="hi this is chaithu"  
+                  |              |
+                variable        value
+  
+         EX-1
+        -----> 1. string is group of chareactors like numbers, alfbets, space, kamas ..etc
+   
+               2. we need that value few charectors how ?
+         
+               * string_var=hi this is krishna chaithanya
+              
+               * echo $string_var ---> its show the all the value
+            
+               * echo ${string_var} ----> its also same given the all value
+         
+               * echo ${#string_var} ---> its given the total number of charectors
+               
+               * echo ${string_var:20} ---> its remove the start 20 charectors
+             
+               * echo ${string_var:20:14} ---> its remove start 20 charectors and after 14 charectors placed and after remover all charectors.
+               
+               * echo ${string_var: -8} -----> its only gives the last 8 charectors.                
+
+ ARITHMETIC OPERATIONS
+------------------------>
+                         expr 2 + 3  (or) expr $a + $b
+                         expr 2 - 3
+                         expr 2 * 3 --> its not work --> expr 2 \* 3 -->its work
+                         expr 10 / 2
+                         expr 20 % 3   
+
+home-work --> (write a shell-script , accpet the 2 numbers passing while excute ..commmand argument,,type)
+
+
+User Intreaction Using Read Command
+------------------------------------>
+    
+                 * echo "please enter the my name"
+                   read name
+                   echoo "my name is" $name
+
+           HERE
+        ----------:- read--> command  name--> variable
+                     
+                      $name--> value of variable.
+ 
+

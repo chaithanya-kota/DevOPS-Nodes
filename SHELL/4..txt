@@ -1,0 +1,42 @@
+                                                           shell-4
+                                                      =================
+1. Array
+  -------> its group of memory location where we can store the values.
+            
+           * once we create array we store the any values.
+  
+           * what is the diffrence b/w the added array in read variable command.--> only read variable command only take one variable value
+       
+              BUT here array its take number of variable values.
+
+           * array----> start--->0 1 2 3 4 5 6 (values) here total numbers= 7
+     
+           USING-ARRAY
+         ---------------:- BEFORE :- # echo "give me ur smile"
+                                     read $name
+                                     # echo "today im not good" $name
+
+                           AFTER :- # echo "give me ur smile "
+                                    read -a $name
+                                    # echo "monaday im ok" ${name[*]}
+                                    # echo "tuesday im not ok" ${name[1]}
+                                    # echo "friday im happy" ${name[5]}
+
+
+                          HERE :-[*]-->this is all values
+                                 [1]-->this is 2nd value
+                                 [0]-->this is 1st value
+ 
+        EMTY	
+      -------> its mean in read no variable. but its work by default. its given replay.
+
+              # echo "hi chaithu how are you"
+              read
+              # echo "me allwase" $REPLY 
+
+
+
+
+
+                                    
+                                   

@@ -1,0 +1,143 @@
+                                                        shell-5
+                                                     ============
+1.for loop
+-----------:- for -loop condition--> for (initialization; condition; inc/dec) 
+            
+            HERE-->1. initialization --> create a varieable and assining the values. (ex-> a=10)
+                   2. condition ---> its increase and decrese the opreator.
+             
+             in shell-scripting
+             
+             # vi fileName
+            
+              echo "for loop demo start"  
+               for (( i=1;i=5; i++ ))
+               do
+               echo $i
+               done
+               echo "for loop demo over.."
+
+ HERE
+--------:- do--> start
+           done ---> over 
+
+
+while-loop
+-----------> 
+            # vi while-loopfile
+             
+            echo "while loop demo starts.."
+            a=1
+           
+            while [ $a -le 100 ]
+            do
+            echo $a
+            a='expr $a + 1'
+            done
+
+            echo "while lopp demo over.."
+
+HERE
+------:> a=1-->initialazition
+         
+         while [condition]
+         do --> start
+         
+         inc/dec
+          
+         done --> over
+         
+
+SWITCH
+------->
+         case $1 in 
+          
+         start)
+         echo "SonarQUbe server starting.."
+         ;;
+         stop)
+         echo "SonarQUbe server stopping.."
+        
+         restart)
+         echo "SonarQUbe server re-starting.."
+         ;;
+         *)
+         echo "please pass the correct arg as follows"
+         echo "usage: sh $0 start|stop|restart"
+         ;;
+         esac
+
+
+onther-file
+------------>echo "please enter the number from 1 to 4 only.."
+             read num
+               
+             case $num in
+             1)
+             echo "you have typed one"
+             echo "you have typed correct number.."
+             ;;
+             2) 
+             echo "you have typed two"
+             echo "you have typed correct number.."
+             ;;
+             3)
+             echo "you have typed three"
+             echo "you have typed correct number"
+             ;;
+             4)
+             echo "you have typed four"
+             echo "you have typed correct number"
+             ;;
+             *)
+             echo "invalid number"
+             echo "type the correct number"
+             ;;
+   
+             esac 
+
+
+FUNCTIONS
+-----------> its used for repeat code..in file
+
+          # vi function-file
+          
+          echo "function demo starts.."
+          greetfn()
+          {
+          echo "heloo everyone.."
+          echo "gm/ga/ge"
+          }
+          echo "calling function"
+          greetfn
+          echo "function demo over"
+
+HERE
+----> greetfn--> reapet fileName 
+      {--(open)
+       program
+      }-->(close)
+      type repeat -->FileName 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,54 @@
+                                                         shell -1
+                                                       ============
+1. SHELL
+  --------:- shell is a program, it will take the commands, whatever user is going to type in cmd .. and it will gives to the OS, to excute 
+             those commands..
+
+2. BASH
+  --------:- default shell type in all advanced linux servers..
+  
+    SH
+  ------:- default shell type in older system..
+   
+  * we have multipull shell type systems 
+  * how to know the shell type support in your OS
+    ("go to---> cat/etc/shell") check
+   
+  * echo $SHELL --> its command to know the current shell
+  * SHELL ----> variable
+ 
+3. what is the bash shell scripting ?
+   
+   * its simple file, containg the series of linux commands
+
+4. file exetenction --> .sh
+
+5. what is the difference b/w the bash shell & Power shell scripting..?
+   
+   * both are different
+   
+   * bash Shell scripting ---> its linux commands
+   
+   * Power Shell scripting --->its DOS commands
+                              (DOS--> its windows command system)
+
+6. write the shell script file
+   
+  * #! --> shebang line. ("its excuted what we write in file.")
+  * #!/bin/sh --> its not manreatary --> but it dose not menction its going to default shell type.bash
+
+  * its excuted line by line
+  
+7. how to Run the shell script ?
+   
+   * fisrt give the permission (chmod u+x filename)
+   * ./ filename (hello.sh)
+         (or)
+      . filename
+          (or)
+        sh filename
+           (or)
+        bash filename
+  
+ 
+
